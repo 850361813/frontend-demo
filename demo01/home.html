@@ -1,0 +1,38 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style> </style>
+    <script src="../build/jquery.min.js"></script>
+    <script src ="../build/angular.js"></script>
+</head>
+<body >
+<div ng-app="myapp">
+    <input ng-model="gender" type="text" placeholder="Your gender">
+    <hello></hello>
+</div>
+<div id="dir" >
+    <dir></dir>
+</div>
+<script >
+    var app = angular.module("myapp",[]);
+    app.directive("hello",function(){
+        return {
+            restrict:"E",
+            template:'{{gender}}',
+            replace:true
+        }
+    });
+    var app2 = angular.module("dir",[]).run(function($templateCache){
+        $templateCache.put("header.html","<h2>use templateCache</h2>");
+    });
+    app2.directive("dir",function($templateCache){return {
+        restrict:"E",
+        template:$templateCache.get("header.html"),
+        replace:true
+    }});
+    angular.bootstrap($("dir"),['dir']);
+</script>
+</body>
+</html>
